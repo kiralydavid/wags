@@ -10,20 +10,19 @@ import {Post} from './post'
 export class PostService {
     constructor (private http: Http) {}
         
-    private gameLinkMatcher = /\/\/play\.google\.com\/store\/apps\/details\?id=([a-zA-Z0-9\.]*)\)/;
+    private gameLinkMatcher = /\/\/play\.google\.com\/store\/apps\/details\?id=([a-zA-Z0-9\.]*)\)/g;
         
     getPostsWithin(posts, postArray) {
         
         posts.forEach(post => {
             if(post.data.replies) {
                 this.getPostsWithin(post.data.replies.data.children, postArray);
-            } else {
-                let matched = this.gameLinkMatcher.exec(post.data.body);
-                if(matched) {
-                    postArray.push(
-                        new Post(post.data.id, matched[1])
-                    )
-                }
+            } 
+            
+            let matched;
+            
+            while(matched = this.gameLinkMatcher.exec(post.data.body)){
+                postArray.push(new Post(post.data.id, matched[1]));  
             }
         })
     }

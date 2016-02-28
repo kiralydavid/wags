@@ -5,7 +5,7 @@ import {GameComponent} from './game.component';
 
 @Component({
     selector: 'thread',
-    template: `<h3>{{thread.title}}</h3><ul><li *ngFor="#post of posts"><game [gameId]="post.gameId"></game></li></ul>`,
+    template: `<div *ngIf="posts"><h3>{{thread.title}} - {{posts.length}} games</h3><ul><li *ngFor="#post of posts"><game [gameId]="post.gameId"></game></li></ul></div>`,
     providers: [PostService],
     inputs: ['thread'],
     directives: [GameComponent]

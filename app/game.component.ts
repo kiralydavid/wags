@@ -7,7 +7,7 @@ import {GameService} from './game.service';
     template: `<div *ngIf="game">
     
     <span>{{game.name}}</span><img class="icon" [src]="game.iconUrl" />
-    <img class="screenshot" *ngFor="#screenshotUrl of game.screenshots" [src]="'http://' + screenshotUrl" />
+    <img class="screenshot" *ngFor="#screenshotUrl of game.screenshots" [src]="screenshotUrl" />
     
     </div>`,
     providers: [GameService],
